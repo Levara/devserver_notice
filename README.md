@@ -26,7 +26,24 @@ Add to your layouts before the closing `</body>` tag:
 At this moment only supports named colors. Default background is `red` and
 default color is `white`.
 
+### Check env variables
 
+If your deployment workflow supports adding environment variables to your app, 
+you can configure an environment variable on your development server and show the
+notice only if the env variable is defined. An example:
+
+
+```erb
+<%= raw(DevServerNotice.show()) if ENV['SERVER_ENV'] == "development" #>
+```
+
+You cannot use `Rails.env.development?` because this references the Rails environment.
+Your app on your development/staging server is most likely running in the production env.
+If you have a staging Rails environment, then you could use it like this:
+
+```erb
+<%= raw(DevServerNotice.show()) if Rails.env.staging? #>
+```
 
 
 
